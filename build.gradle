@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.gosu-lang.gosu:gosu-xml:1-X-SNAPSHOT' // has transitive dependencies on Gosu
+    compile 'org.gosu-lang.gosu:gosu-xml:1-X-SNAPSHOT' // has transitive dependency on gosu-core-api
     runtime 'org.gosu-lang.gosu:gosu-core:' + gosuVersion
     testCompile 'junit:junit:4.12'
     testRuntime files(Jvm.current().toolsJar)
