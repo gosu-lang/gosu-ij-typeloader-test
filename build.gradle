@@ -1,3 +1,5 @@
+import org.gradle.internal.jvm.Jvm
+
 plugins {
     id 'org.gosu-lang.gosu' version '0.2.2'
 }
@@ -13,6 +15,7 @@ dependencies {
     compile 'org.gosu-lang.gosu:gosu-xml:1-X-SNAPSHOT' // has transitive dependencies on Gosu
     runtime 'org.gosu-lang.gosu:gosu-core:' + gosuVersion
     testCompile 'junit:junit:4.12'
+    testRuntime files(Jvm.current().toolsJar)
 }
 
 sourceCompatibility = 1.8
@@ -20,4 +23,14 @@ targetCompatibility = 1.8
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+compileGosu {
+    dependsOn(tasks.processResources)
+    classpath = files(classpath, sourceSets.main.output.resourcesDir)
+}
+
+compileTestGosu {
+    dependsOn(tasks.processTestResources)
+    classpath = files(classpath, sourceSets.test.output.resourcesDir)
 }
